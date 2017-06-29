@@ -1,0 +1,44 @@
+
+<button id="shareUrl" [hidden]="!inConference" ngIIclipboard [cbContent]="ContextUrl">
+    <i class="fa fa-link fa-2x"></i>
+    
+</button>
+
+<div id="hero" [hidden]="inConference">
+    <div class="launch">
+        <label for="context">Enter a room to start talking:</label>
+        <input [(ngModel)]="Context" type="text" id="context" placeholder="Enter room name..."  
+        autofocus="autofocus" [disabled]="actionButtonCaption == 'JOIN'">
+        <button (click)="joinConference()">{{actionButtonCaption}} </button> 
+    </div>
+</div>
+<section>
+    <div id="local">
+   
+    <video id="local" autoplay="autoplay" muted="muted" [src]="LocalStreamUrl"></video>
+    </div>
+    <div id="fullscreen-video">
+        <video id="main-video" muted="muted" [src]="MainVideoUrl || 'http://ui.specbee.com/sample/bird.mp4'" autoplay="autoplay"></video>
+    </div>
+    <div *ngFor='let lst of Participants'>
+        <ul>
+            <li>{{lst.url}}</li>
+        </ul>
+    </div>
+
+ 
+
+</section>
+<div id="im" [hidden]="!inConference">
+    <div id="im-messages">
+         <p *ngFor="let im of InstantMessages">
+             <time>{{im.timeStamp | date:'hh:MM'}}</time><span>{{im.text}}</span>
+             </p>
+    </div>
+    <input type="text" 
+    [(ngModel)]="InstantMessage.text" (keyup.enter)="sendIM()"
+    id="im-text" placeholder="Send an instant message to all ..." />
+</div>
+
+ 
+
