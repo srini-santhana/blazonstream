@@ -101,6 +101,8 @@ export class ConferenceComponent {
             this.LocalStreamUrl = blobUrl;
             this.conferenceService.joinConference(this.Context);
             this.inConference = true;
+            //this.ContextUrl = String(window.URL.createObjectURL(stream));
+            // not needed 
         }, (err) => {
 
             console.log("getUserMedia error", err);

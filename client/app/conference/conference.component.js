@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var conference_service_1 = require('../shared/services/conference.service');
-var models_1 = require('../../../shared/models');
-var platform_browser_1 = require('@angular/platform-browser');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var conference_service_1 = require("../shared/services/conference.service");
+var models_1 = require("../../../shared/models");
+var platform_browser_1 = require("@angular/platform-browser");
 var SanitizeUrl = (function () {
     function SanitizeUrl(_sanitizer) {
         this._sanitizer = _sanitizer;
@@ -20,14 +21,14 @@ var SanitizeUrl = (function () {
     SanitizeUrl.prototype.transform = function (v) {
         return this._sanitizer.bypassSecurityTrustUrl(v);
     };
-    SanitizeUrl = __decorate([
-        core_1.Pipe({
-            name: 'sanitizeUrl'
-        }), 
-        __metadata('design:paramtypes', [platform_browser_1.DomSanitizer])
-    ], SanitizeUrl);
     return SanitizeUrl;
 }());
+SanitizeUrl = __decorate([
+    core_1.Pipe({
+        name: 'sanitizeUrl'
+    }),
+    __metadata("design:paramtypes", [platform_browser_1.DomSanitizer])
+], SanitizeUrl);
 var ConferenceComponent = (function () {
     function ConferenceComponent(conferenceService, sanitizer, route) {
         var _this = this;
@@ -41,13 +42,13 @@ var ConferenceComponent = (function () {
             if (!params.hasOwnProperty("slug")) {
                 _this.conferenceService.getSlug().subscribe(function (randomSlug) {
                     _this.Context = randomSlug;
-                    _this.ContextUrl = "https://" + location.host + "/#/join/" + randomSlug;
+                    _this.ContextUrl = "http://" + location.host + "/#/join/" + randomSlug;
                 });
             }
             else {
                 _this.Context = params["slug"].toString();
                 _this.actionButtonCaption = "JOIN";
-                _this.ContextUrl = "https://" + location.host + "/#/join/" + _this.Context;
+                _this.ContextUrl = "http://" + location.host + "/#/join/" + _this.Context;
             }
             _this.Participants = new Array();
             _this.Participants = _this.conferenceService.RemoteStreams;
@@ -72,19 +73,22 @@ var ConferenceComponent = (function () {
             _this.LocalStreamUrl = blobUrl;
             _this.conferenceService.joinConference(_this.Context);
             _this.inConference = true;
+            //this.ContextUrl = String(window.URL.createObjectURL(stream));
+            // not needed 
         }, function (err) {
             console.log("getUserMedia error", err);
         });
     };
-    ConferenceComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'conference',
-            templateUrl: 'conference.component.html',
-        }), 
-        __metadata('design:paramtypes', [conference_service_1.ConferenceService, platform_browser_1.DomSanitizer, router_1.ActivatedRoute])
-    ], ConferenceComponent);
     return ConferenceComponent;
 }());
+ConferenceComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'conference',
+        templateUrl: 'conference.component.html',
+    }),
+    __metadata("design:paramtypes", [conference_service_1.ConferenceService, platform_browser_1.DomSanitizer,
+        router_1.ActivatedRoute])
+], ConferenceComponent);
 exports.ConferenceComponent = ConferenceComponent;
 //# sourceMappingURL=conference.component.js.map

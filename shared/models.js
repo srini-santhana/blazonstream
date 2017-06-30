@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ChatMessage = (function () {
     function ChatMessage(message, age) {
         this.message = message;
