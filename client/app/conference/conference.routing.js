@@ -1,6 +1,7 @@
 "use strict";
-var router_1 = require('@angular/router');
-var conference_component_1 = require('./conference.component');
+Object.defineProperty(exports, "__esModule", { value: true });
+var router_1 = require("@angular/router");
+var conference_component_1 = require("./conference.component");
 var conference_routes = [
     { path: '', pathMatch: 'full', redirectTo: '/conference' },
     { path: 'join/:slug', component: conference_component_1.ConferenceComponent },

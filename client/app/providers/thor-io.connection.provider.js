@@ -1,5 +1,6 @@
 "use strict";
-var thor_io_client_vnext_1 = require('thor-io.client-vnext');
+Object.defineProperty(exports, "__esModule", { value: true });
+var thor_io_client_vnext_1 = require("thor-io.client-vnext");
 var ConnectionProviderError = (function () {
     function ConnectionProviderError(error) {
         this.timeStamp = new Date();
