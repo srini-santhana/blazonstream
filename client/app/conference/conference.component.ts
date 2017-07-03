@@ -58,24 +58,17 @@ export class ConferenceComponent {
                 this.conferenceService.getSlug().subscribe((randomSlug: string) => {
                     this.Context = randomSlug;
                     this.ContextUrl = "https://" + location.host + "/#/join/" + randomSlug
-
                 });
             } else {
                 this.Context = params["slug"].toString();
                 this.actionButtonCaption = "JOIN";
                 this.ContextUrl = "https://" + location.host + "/#/join/" + this.Context;
-
             }
-
-
             this.Participants = new Array<Participant>();
-
-
-
-
             this.Participants = this.conferenceService.RemoteStreams;
             this.InstantMessages = this.conferenceService.InstantMessages;
-
+            
+            console.log("Participants",this.Participants);
 
             this.conferenceService.onParticipant = (participant: Participant) => {
                 this.MainVideoUrl = participant.url;
@@ -102,6 +95,7 @@ export class ConferenceComponent {
             this.LocalStreamUrl = blobUrl;
             this.conferenceService.joinConference(this.Context);
             this.inConference = true;
+            this.MainVideoUrl = this.LocalStreamUrl;
             //this.ContextUrl = String(window.URL.createObjectURL(stream));
             // not needed 
         }, (err) => {
