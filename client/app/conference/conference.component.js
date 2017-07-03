@@ -42,13 +42,13 @@ var ConferenceComponent = (function () {
             if (!params.hasOwnProperty("slug")) {
                 _this.conferenceService.getSlug().subscribe(function (randomSlug) {
                     _this.Context = randomSlug;
-                    _this.ContextUrl = "http://" + location.host + "/#/join/" + randomSlug;
+                    _this.ContextUrl = "https://" + location.host + "/#/join/" + randomSlug;
                 });
             }
             else {
                 _this.Context = params["slug"].toString();
                 _this.actionButtonCaption = "JOIN";
-                _this.ContextUrl = "http://" + location.host + "/#/join/" + _this.Context;
+                _this.ContextUrl = "https://" + location.host + "/#/join/" + _this.Context;
             }
             _this.Participants = new Array();
             _this.Participants = _this.conferenceService.RemoteStreams;
@@ -56,6 +56,7 @@ var ConferenceComponent = (function () {
             _this.conferenceService.onParticipant = function (participant) {
                 _this.MainVideoUrl = participant.url;
             };
+            // http to http
         });
     }
     ConferenceComponent.prototype.sendIM = function () {
