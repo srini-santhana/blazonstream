@@ -57,13 +57,13 @@ export class ConferenceComponent {
             if (!params.hasOwnProperty("slug")) {
                 this.conferenceService.getSlug().subscribe((randomSlug: string) => {
                     this.Context = randomSlug;
-                    this.ContextUrl = "http://" + location.host + "/#/join/" + randomSlug
+                    this.ContextUrl = "https://" + location.host + "/#/join/" + randomSlug
 
                 });
             } else {
                 this.Context = params["slug"].toString();
                 this.actionButtonCaption = "JOIN";
-                this.ContextUrl = "http://" + location.host + "/#/join/" + this.Context;
+                this.ContextUrl = "https://" + location.host + "/#/join/" + this.Context;
 
             }
 
