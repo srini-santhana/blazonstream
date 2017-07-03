@@ -56,6 +56,7 @@ var ConferenceComponent = (function () {
             _this.conferenceService.onParticipant = function (participant) {
                 _this.MainVideoUrl = participant.url;
             };
+            // http to http
         });
     }
     ConferenceComponent.prototype.sendIM = function () {
