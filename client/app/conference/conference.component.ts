@@ -90,13 +90,22 @@ export class ConferenceComponent {
 
     joinConference() {
         navigator.getUserMedia({ audio: true, video: true }, (stream: MediaStream) => {
+            console.log("button text", this.actionButtonCaption);
             this.conferenceService.addLocalMediaStream(stream);
             let blobUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
             this.LocalStreamUrl = blobUrl;
             this.conferenceService.joinConference(this.Context);
             this.inConference = true;
-            this.MainVideoUrl = this.LocalStreamUrl;
-            //this.ContextUrl = String(window.URL.createObjectURL(stream));
+            if (this.actionButtonCaption === "START")
+            {
+                this.MainVideoUrl = this.LocalStreamUrl;
+            }
+            else
+            {
+                this.MainVideoUrl = this.conferenceService.findFirstMediaStream();
+            }
+
+             //this.ContextUrl = String(window.URL.createObjectURL(stream));
             // not needed 
         }, (err) => {
 

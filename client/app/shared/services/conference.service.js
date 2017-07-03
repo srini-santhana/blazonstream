@@ -77,6 +77,10 @@ var ConferenceService = (function () {
         });
         return match;
     };
+    ConferenceService.prototype.findFirstMediaStream = function () {
+        var match = this.RemoteStreams[0];
+        return match;
+    };
     ConferenceService.prototype.addLocalMediaStream = function (stream) {
         this.rtc.AddLocalStream(stream);
     };
