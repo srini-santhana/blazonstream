@@ -6,8 +6,8 @@
 
 <div id="hero" [hidden]="inConference">
     <div class="launch">
-        <label for="context">Enter a room to start talking:</label>
-        <input [(ngModel)]="Context" type="text" id="context" placeholder="Enter room name..."  
+        <label for="context">Enter a room to start video stream:</label>
+        <input [(ngModel)]="Context" type="text" id="context" placeholder="Join Video Stream..."  
         autofocus="autofocus" [disabled]="actionButtonCaption == 'JOIN'">
         <button (click)="joinConference()">{{actionButtonCaption}} </button> 
     </div>
@@ -23,7 +23,7 @@
 
 
 </section>
-<div id="im" [hidden]="!inConference">
+<!--<div id="im" [hidden]="!inConference">
     <div id="im-messages">
          <p *ngFor="let im of InstantMessages">
              <time>{{im.timeStamp | date:'hh:MM'}}</time><span>{{im.text}}</span>
@@ -32,7 +32,7 @@
     <input type="text" 
     [(ngModel)]="InstantMessage.text" (keyup.enter)="sendIM()"
     id="im-text" placeholder="Send an instant message to all ..." />
-</div>
+</div>-->
 
  
 

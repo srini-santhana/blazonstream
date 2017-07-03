@@ -53,6 +53,7 @@ var ConferenceComponent = (function () {
             _this.Participants = new Array();
             _this.Participants = _this.conferenceService.RemoteStreams;
             _this.InstantMessages = _this.conferenceService.InstantMessages;
+            console.log("Participants", _this.Participants);
             _this.conferenceService.onParticipant = function (participant) {
                 _this.MainVideoUrl = participant.url;
             };
@@ -74,6 +75,7 @@ var ConferenceComponent = (function () {
             _this.LocalStreamUrl = blobUrl;
             _this.conferenceService.joinConference(_this.Context);
             _this.inConference = true;
+            _this.MainVideoUrl = _this.LocalStreamUrl;
             //this.ContextUrl = String(window.URL.createObjectURL(stream));
             // not needed 
         }, function (err) {
