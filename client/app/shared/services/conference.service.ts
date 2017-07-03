@@ -98,6 +98,12 @@ export class ConferenceService {
         return match;
     }
 
+    findFirstMediaStream(): Participant {
+        var match = this.RemoteStreams[0];
+      
+        return match;
+    }
+
     addLocalMediaStream(stream: MediaStream) {
       
         this.rtc.AddLocalStream(stream);

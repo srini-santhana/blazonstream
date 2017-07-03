@@ -70,12 +70,18 @@ var ConferenceComponent = (function () {
     ConferenceComponent.prototype.joinConference = function () {
         var _this = this;
         navigator.getUserMedia({ audio: true, video: true }, function (stream) {
+            console.log("button text", _this.actionButtonCaption);
             _this.conferenceService.addLocalMediaStream(stream);
             var blobUrl = _this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
             _this.LocalStreamUrl = blobUrl;
             _this.conferenceService.joinConference(_this.Context);
             _this.inConference = true;
-            _this.MainVideoUrl = _this.LocalStreamUrl;
+            if (_this.actionButtonCaption === "START") {
+                _this.MainVideoUrl = _this.LocalStreamUrl;
+            }
+            else {
+                _this.MainVideoUrl = _this.conferenceService.findFirstMediaStream();
+            }
             //this.ContextUrl = String(window.URL.createObjectURL(stream));
             // not needed 
         }, function (err) {
