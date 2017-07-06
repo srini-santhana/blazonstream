@@ -31,12 +31,15 @@ export class ConferenceComponent {
 
     LocalStreamUrl: SafeUrl;
     MainVideoUrl: SafeUrl;
+    NewStreamUrl: SafeUrl;
+    StringMainVideoUrl: string;
 
     public ContextUrl: string;
     public actionButtonCaption: string;
     public inConference: boolean;
     public InstantMessages: Array<InstantMessage>;
     public InstantMessage: InstantMessage;
+    public StreamUrl: string;
 
     public Participants: Array<Participant>;
 
@@ -55,29 +58,27 @@ export class ConferenceComponent {
         this.route.params.subscribe((params: Params) => {
 
             if (!params.hasOwnProperty("slug")) {
+                this.NewStreamUrl = "";
                 this.conferenceService.getSlug().subscribe((randomSlug: string) => {
                     this.Context = randomSlug;
-                    this.ContextUrl = "https://" + location.host + "/#/join/" + randomSlug
+                    this.ContextUrl = "https://" + location.host + "/#/join/" + randomSlug +
+                                            "?NewStreamUrl=" + this.NewStreamUrl;
                 });
             } else {
                 this.Context = params["slug"].toString();
                 this.actionButtonCaption = "JOIN";
-                this.ContextUrl = "https://" + location.host + "/#/join/" + this.Context;
+                this.ContextUrl = "https://" + location.host + "/#/join/" + this.Context + 
+                        "?NewStreamUrl=" + this.NewStreamUrl;
             }
             this.Participants = new Array<Participant>();
             this.Participants = this.conferenceService.RemoteStreams;
             this.InstantMessages = this.conferenceService.InstantMessages;
             
-            console.log("Participants",this.Participants);
-
+            console.log("101 - constructor -  Participants",this.Participants);
             this.conferenceService.onParticipant = (participant: Participant) => {
                 this.MainVideoUrl = participant.url;
             }
-
-// http to http
-
         });
-
     }
     sendIM() {
         this.conferenceService.sendInstantMessage(this.InstantMessage);
@@ -85,12 +86,13 @@ export class ConferenceComponent {
         this.InstantMessage.text = "";
     }
     changeMainVideo(participant: Participant) {
+        console.log("102 - changeMainVideo participant.url ",participant.url);
         this.MainVideoUrl = participant.url;
     }
 
     joinConference() {
         navigator.getUserMedia({ audio: true, video: true }, (stream: MediaStream) => {
-            console.log("button text", this.actionButtonCaption);
+            console.log("103 - joinConference participant.url ",this.actionButtonCaption);            
             this.conferenceService.addLocalMediaStream(stream);
             let blobUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
             this.LocalStreamUrl = blobUrl;
@@ -98,11 +100,16 @@ export class ConferenceComponent {
             this.inConference = true;
             if (this.actionButtonCaption === "START")
             {
+                console.log("LocalStreamUrl " + String(this.LocalStreamUrl));
+                //let temp = this.conferenceService.findFirstMediaStream();
                 this.MainVideoUrl = this.LocalStreamUrl;
+                this.LocalStreamUrl = String(this.LocalStreamUrl);
+                this.StringMainVideoUrl = String(this.LocalStreamUrl);
             }
             else
             {
-                this.MainVideoUrl = this.conferenceService.findFirstMediaStream();
+                var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                this.MainVideoUrl = firstParticipant.url;
             }
 
              //this.ContextUrl = String(window.URL.createObjectURL(stream));

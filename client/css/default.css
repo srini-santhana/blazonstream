@@ -42,8 +42,8 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    min-width: 100%;
-    min-height: 100%;
+    min-width: 50%;
+    min-height: 50%;
     width: auto;
     height: auto;
     -webkit-transform: translateX(-50%) translateY(-50%);
