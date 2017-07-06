@@ -76,7 +76,7 @@ export class ConferenceComponent {
             
             console.log("101 - constructor -  Participants",this.Participants);
             this.conferenceService.onParticipant = (participant: Participant) => {
-                this.MainVideoUrl = participant.url;
+                // this.MainVideoUrl = participant.url;
             }
         });
     }
@@ -86,8 +86,8 @@ export class ConferenceComponent {
         this.InstantMessage.text = "";
     }
     changeMainVideo(participant: Participant) {
-        console.log("102 - changeMainVideo participant.url ",participant.url);
-        this.MainVideoUrl = participant.url;
+        // console.log("102 - changeMainVideo participant.url ",participant.url);
+       // this.MainVideoUrl = participant.url;
     }
 
     joinConference() {
