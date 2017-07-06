@@ -60,8 +60,9 @@ var ConferenceComponent = (function () {
             _this.conferenceService.onParticipant = function (participant) {
                 console.log("102 a - onParticipant onParticipant  ", participant.url);
                 // this.MainVideoUrl = participant.url;
-                // var firstParticipant =  this.conferenceService.findFirstMediaStream();
-                //this.MainVideoUrl = firstParticipant.url;
+                var firstParticipant = _this.conferenceService.findFirstMediaStream();
+                if (firstParticipant)
+                    _this.MainVideoUrl = firstParticipant.url;
             };
         });
     }
