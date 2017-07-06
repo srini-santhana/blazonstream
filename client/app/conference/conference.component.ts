@@ -76,9 +76,10 @@ export class ConferenceComponent {
             
             console.log("101 - constructor -  Participants",this.Participants);
             this.conferenceService.onParticipant = (participant: Participant) => {
+                console.log("102 a - onParticipant onParticipant  ",participant.url);
                 // this.MainVideoUrl = participant.url;
-                var firstParticipant =  this.conferenceService.findFirstMediaStream();
-                this.MainVideoUrl = firstParticipant.url;
+                // var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                //this.MainVideoUrl = firstParticipant.url;
                 
             }
         });
@@ -89,10 +90,10 @@ export class ConferenceComponent {
         this.InstantMessage.text = "";
     }
     changeMainVideo(participant: Participant) {
-        // console.log("102 - changeMainVideo participant.url ",participant.url);
+         console.log("102 - changeMainVideo participant.url ",participant.url);
        // this.MainVideoUrl = participant.url;
-                var firstParticipant =  this.conferenceService.findFirstMediaStream();
-                this.MainVideoUrl = firstParticipant.url;
+                // var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                // this.MainVideoUrl = firstParticipant.url;
        
     }
 
