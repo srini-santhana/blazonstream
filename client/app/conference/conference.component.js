@@ -58,9 +58,10 @@ var ConferenceComponent = (function () {
             _this.InstantMessages = _this.conferenceService.InstantMessages;
             console.log("101 - constructor -  Participants", _this.Participants);
             _this.conferenceService.onParticipant = function (participant) {
+                console.log("102 a - onParticipant onParticipant  ", participant.url);
                 // this.MainVideoUrl = participant.url;
-                var firstParticipant = _this.conferenceService.findFirstMediaStream();
-                _this.MainVideoUrl = firstParticipant.url;
+                // var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                //this.MainVideoUrl = firstParticipant.url;
             };
         });
     }
@@ -69,10 +70,10 @@ var ConferenceComponent = (function () {
         this.InstantMessage.text = "";
     };
     ConferenceComponent.prototype.changeMainVideo = function (participant) {
-        // console.log("102 - changeMainVideo participant.url ",participant.url);
+        console.log("102 - changeMainVideo participant.url ", participant.url);
         // this.MainVideoUrl = participant.url;
-        var firstParticipant = this.conferenceService.findFirstMediaStream();
-        this.MainVideoUrl = firstParticipant.url;
+        // var firstParticipant =  this.conferenceService.findFirstMediaStream();
+        // this.MainVideoUrl = firstParticipant.url;
     };
     ConferenceComponent.prototype.joinConference = function () {
         var _this = this;
