@@ -59,6 +59,8 @@ var ConferenceComponent = (function () {
             console.log("101 - constructor -  Participants", _this.Participants);
             _this.conferenceService.onParticipant = function (participant) {
                 // this.MainVideoUrl = participant.url;
+                var firstParticipant = _this.conferenceService.findFirstMediaStream();
+                _this.MainVideoUrl = firstParticipant.url;
             };
         });
     }
@@ -69,6 +71,8 @@ var ConferenceComponent = (function () {
     ConferenceComponent.prototype.changeMainVideo = function (participant) {
         // console.log("102 - changeMainVideo participant.url ",participant.url);
         // this.MainVideoUrl = participant.url;
+        var firstParticipant = this.conferenceService.findFirstMediaStream();
+        this.MainVideoUrl = firstParticipant.url;
     };
     ConferenceComponent.prototype.joinConference = function () {
         var _this = this;
