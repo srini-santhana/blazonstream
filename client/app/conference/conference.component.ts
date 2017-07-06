@@ -77,6 +77,9 @@ export class ConferenceComponent {
             console.log("101 - constructor -  Participants",this.Participants);
             this.conferenceService.onParticipant = (participant: Participant) => {
                 // this.MainVideoUrl = participant.url;
+                var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                this.MainVideoUrl = firstParticipant.url;
+                
             }
         });
     }
@@ -88,6 +91,9 @@ export class ConferenceComponent {
     changeMainVideo(participant: Participant) {
         // console.log("102 - changeMainVideo participant.url ",participant.url);
        // this.MainVideoUrl = participant.url;
+                var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                this.MainVideoUrl = firstParticipant.url;
+       
     }
 
     joinConference() {
