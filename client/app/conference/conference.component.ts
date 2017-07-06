@@ -78,8 +78,9 @@ export class ConferenceComponent {
             this.conferenceService.onParticipant = (participant: Participant) => {
                 console.log("102 a - onParticipant onParticipant  ",participant.url);
                 // this.MainVideoUrl = participant.url;
-                // var firstParticipant =  this.conferenceService.findFirstMediaStream();
-                //this.MainVideoUrl = firstParticipant.url;
+                var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                if (firstParticipant)
+                    this.MainVideoUrl = firstParticipant.url;
                 
             }
         });
