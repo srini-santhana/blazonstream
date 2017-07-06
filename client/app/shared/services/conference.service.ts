@@ -50,13 +50,14 @@ export class ConferenceService {
         this.rtc.OnLocalStream = () => {}
 
         this.rtc.OnRemoteStream = (stream: MediaStream) => {
-            let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
-            let participant = new Participant(stream,
-                safeUrl,
-                stream.id
-            );
-            this.onParticipant(participant);
-            this.RemoteStreams.push(participant);
+             let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+             let participant = new Participant(stream,
+                 safeUrl,
+                 stream.id,
+                 this.RemoteStreams.length
+             );
+             this.onParticipant(participant);
+             this.RemoteStreams.push(participant);
         };
         this.rtc.OnRemoteStreamlost = (streamId, peerId) => {
             var remoteStream = this.findMediaStream(streamId);
@@ -91,6 +92,7 @@ export class ConferenceService {
     }
 
     findMediaStream(streamId: string): Participant {
+
         var match = this.RemoteStreams.find((pre: Participant) => {
             return pre.id === streamId;
         });
@@ -98,15 +100,36 @@ export class ConferenceService {
         return match;
     }
 
+    // addFirstMediaStream(firstUrl: SafeUrl, stream: MediaStream)
+    // {
+    //         let participant = new Participant(stream,
+    //             firstUrl,
+    //             stream.id
+    //         );
+    //         this.RemoteStreams.push(participant);
+    // }
+
     findFirstMediaStream(): Participant {
-        var match = this.RemoteStreams[0];
+           console.log("findFirstMediaStream", this.RemoteStreams);
+
+        var match = this.RemoteStreams[this.RemoteStreams.length];
       
         return match;
     }
 
     addLocalMediaStream(stream: MediaStream) {
-      
+        console.log("104-addLocalMediaStream");
         this.rtc.AddLocalStream(stream);
+             
+             let safeUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+             let participant = new Participant(stream,
+                 safeUrl,
+                 stream.id,
+                 this.RemoteStreams.length
+             );
+             this.onParticipant(participant);
+             this.RemoteStreams.push(participant);
+             console.log("105 - addLocalMediaStream -  Participants",this.RemoteStreams);
     };
 
     connectContext(context: string) {

@@ -9,10 +9,11 @@ var ChatMessage = (function () {
 }());
 exports.ChatMessage = ChatMessage;
 var Participant = (function () {
-    function Participant(stream, url, id) {
+    function Participant(stream, url, id, orderid) {
         this.stream = stream;
         this.url = url;
         this.id = id;
+        this.orderid = orderid;
     }
     return Participant;
 }());
