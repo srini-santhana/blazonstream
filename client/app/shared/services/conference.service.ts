@@ -112,7 +112,7 @@ export class ConferenceService {
     findFirstMediaStream(): Participant {
            console.log("findFirstMediaStream", this.RemoteStreams);
 
-        var match = this.RemoteStreams[this.RemoteStreams.length];
+        var match = this.RemoteStreams[this.RemoteStreams.length - 1];
       
         return match;
     }

@@ -87,7 +87,7 @@ var ConferenceService = (function () {
     // }
     ConferenceService.prototype.findFirstMediaStream = function () {
         console.log("findFirstMediaStream", this.RemoteStreams);
-        var match = this.RemoteStreams[this.RemoteStreams.length];
+        var match = this.RemoteStreams[this.RemoteStreams.length - 1];
         return match;
     };
     ConferenceService.prototype.addLocalMediaStream = function (stream) {
