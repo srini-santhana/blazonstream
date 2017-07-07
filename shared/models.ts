@@ -14,13 +14,13 @@ export class Participant{
     stream: MediaStream;
     url: SafeUrl;
     id:string;
-    orderid: number;
+    primay: number;
 
-    constructor(stream:MediaStream,url:SafeUrl,id:string, orderid: number){
+    constructor(stream:MediaStream,url:SafeUrl,id:string, primay: number){
         this.stream = stream;
         this.url =url;
         this.id = id;
-        this.orderid = orderid;
+        this.primay = primay;
     }
 }
 
