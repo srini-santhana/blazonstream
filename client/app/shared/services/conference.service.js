@@ -43,10 +43,14 @@ var ConferenceService = (function () {
         };
         this.rtc.OnLocalStream = function () { };
         this.rtc.OnRemoteStream = function (stream) {
-            var safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
-            var participant = new models_1.Participant(stream, safeUrl, stream.id, 1);
-            _this.onParticipant(participant);
-            _this.RemoteStreams.push(participant);
+            //  let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+            //  let participant = new Participant(stream,
+            //      safeUrl,
+            //      stream.id,
+            //      1
+            //  );
+            //  this.onParticipant(participant);
+            //  this.RemoteStreams.push(participant);
         };
         this.rtc.OnRemoteStreamlost = function (streamId, peerId) {
             var remoteStream = _this.findMediaStream(streamId);
