@@ -50,14 +50,14 @@ export class ConferenceService {
         this.rtc.OnLocalStream = () => {}
 
         this.rtc.OnRemoteStream = (stream: MediaStream) => {
-             let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
-             let participant = new Participant(stream,
-                 safeUrl,
-                 stream.id,
-                 1
-             );
-             this.onParticipant(participant);
-             this.RemoteStreams.push(participant);
+            //  let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+            //  let participant = new Participant(stream,
+            //      safeUrl,
+            //      stream.id,
+            //      1
+            //  );
+            //  this.onParticipant(participant);
+            //  this.RemoteStreams.push(participant);
         };
         this.rtc.OnRemoteStreamlost = (streamId, peerId) => {
             var remoteStream = this.findMediaStream(streamId);
