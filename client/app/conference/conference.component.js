@@ -78,6 +78,7 @@ var ConferenceComponent = (function () {
     };
     ConferenceComponent.prototype.joinConference = function () {
         var _this = this;
+        console.log("103-a- joinConference participant.url ");
         navigator.getUserMedia({ audio: true, video: true }, function (stream) {
             console.log("103 - joinConference participant.url ", _this.actionButtonCaption);
             _this.conferenceService.addLocalMediaStream(stream);

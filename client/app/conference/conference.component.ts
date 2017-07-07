@@ -99,6 +99,7 @@ export class ConferenceComponent {
     }
 
     joinConference() {
+        console.log("103-a- joinConference participant.url " );            
         navigator.getUserMedia({ audio: true, video: true }, (stream: MediaStream) => {
             console.log("103 - joinConference participant.url ",this.actionButtonCaption);            
             this.conferenceService.addLocalMediaStream(stream);
