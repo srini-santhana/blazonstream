@@ -54,7 +54,7 @@ export class ConferenceService {
              let participant = new Participant(stream,
                  safeUrl,
                  stream.id,
-                 this.RemoteStreams.length
+                 1
              );
              this.onParticipant(participant);
              this.RemoteStreams.push(participant);
@@ -112,7 +112,9 @@ export class ConferenceService {
     findFirstMediaStream(): Participant {
            console.log("findFirstMediaStream", this.RemoteStreams);
 
-        var match = this.RemoteStreams[this.RemoteStreams.length - 1];
+      var match = this.RemoteStreams.find((pre: Participant) => {
+            return pre.primay === 0;
+        });
       
         return match;
     }
@@ -125,7 +127,7 @@ export class ConferenceService {
              let participant = new Participant(stream,
                  safeUrl,
                  stream.id,
-                 this.RemoteStreams.length
+                 0
              );
              this.onParticipant(participant);
              this.RemoteStreams.push(participant);
