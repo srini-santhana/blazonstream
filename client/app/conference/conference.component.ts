@@ -117,7 +117,11 @@ export class ConferenceComponent {
             else
             {
                 var firstParticipant =  this.conferenceService.findFirstMediaStream();
-                this.MainVideoUrl = firstParticipant.url;
+                if (firstParticipant)
+                {
+                    console.log(firstParticipant.url);
+                    this.MainVideoUrl = firstParticipant.url;
+                }
             }
 
              //this.ContextUrl = String(window.URL.createObjectURL(stream));
