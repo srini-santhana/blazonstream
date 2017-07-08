@@ -39,6 +39,9 @@ var ConferenceComponent = (function () {
         this.InstantMessages = new Array();
         this.InstantMessage = new models_1.InstantMessage();
         this.route.params.subscribe(function (params) {
+            if (params.hasOwnProperty("streamid")) {
+                _this.ParamStreamId = params["streamid"].toString();
+            }
             if (!params.hasOwnProperty("slug")) {
                 _this.NewStreamUrl = "";
                 _this.conferenceService.getSlug().subscribe(function (randomSlug) {
@@ -59,8 +62,9 @@ var ConferenceComponent = (function () {
             console.log("101 - constructor -  Participants", _this.Participants);
             _this.conferenceService.onParticipant = function (participant) {
                 console.log("102 a - onParticipant onParticipant  ", participant.url);
+                console.log("102 b - ParamStreamId  ", _this.ParamStreamId);
                 // this.MainVideoUrl = participant.url;
-                var firstParticipant = _this.conferenceService.findFirstMediaStream();
+                var firstParticipant = _this.conferenceService.findMediaStream(_this.ParamStreamId);
                 if (firstParticipant)
                     _this.MainVideoUrl = firstParticipant.url;
             };
@@ -94,7 +98,7 @@ var ConferenceComponent = (function () {
                 _this.StringMainVideoUrl = String(_this.LocalStreamUrl);
             }
             else {
-                var firstParticipant = _this.conferenceService.findFirstMediaStream();
+                var firstParticipant = _this.conferenceService.findMediaStream(_this.ParamStreamId);
                 if (firstParticipant) {
                     console.log(firstParticipant.url);
                     _this.MainVideoUrl = firstParticipant.url;
