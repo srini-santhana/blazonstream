@@ -43,14 +43,11 @@ var ConferenceService = (function () {
         };
         this.rtc.OnLocalStream = function () { };
         this.rtc.OnRemoteStream = function (stream) {
-            //  let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
-            //  let participant = new Participant(stream,
-            //      safeUrl,
-            //      stream.id,
-            //      1
-            //  );
-            //  this.onParticipant(participant);
-            //  this.RemoteStreams.push(participant);
+            var safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+            var participant = new models_1.Participant(stream, safeUrl, stream.id, 1);
+            console.log("onRemoteStream primary", participant.primay);
+            _this.onParticipant(participant);
+            _this.RemoteStreams.push(participant);
         };
         this.rtc.OnRemoteStreamlost = function (streamId, peerId) {
             var remoteStream = _this.findMediaStream(streamId);
@@ -79,6 +76,20 @@ var ConferenceService = (function () {
         var match = this.RemoteStreams.find(function (pre) {
             return pre.id === streamId;
         });
+        console.log("103-3aa findMediaStream", this.RemoteStreams.length);
+        var len = this.RemoteStreams.length;
+        for (var i = 0; i < len; i++) {
+            console.log("103-3z", this.RemoteStreams[i].id);
+            if (this.RemoteStreams[i].id === streamId)
+                match = this.RemoteStreams[i];
+        }
+        // for (var pre in this.RemoteStreams) {
+        //     console.log(this.RemoteStreams[pre], streamId);
+        //      if (pre.id === streamId )
+        //         match = pre;
+        // }   
+        console.log("103-3a findMediaStream", streamId);
+        console.log("103-3 findMediaStream", match);
         return match;
     };
     // addFirstMediaStream(firstUrl: SafeUrl, stream: MediaStream)
@@ -89,18 +100,19 @@ var ConferenceService = (function () {
     //         );
     //         this.RemoteStreams.push(participant);
     // }
-    ConferenceService.prototype.findFirstMediaStream = function () {
-        console.log("findFirstMediaStream", this.RemoteStreams);
-        var match = this.RemoteStreams.find(function (pre) {
-            return pre.primay === 0;
-        });
-        return match;
-    };
+    // findFirstMediaStream(): Participant {
+    //        console.log("findFirstMediaStream", this.RemoteStreams);
+    //   var match = this.RemoteStreams.find((pre: Participant) => {
+    //         return pre.primay === 0;
+    //     });
+    //     return match;
+    // }
     ConferenceService.prototype.addLocalMediaStream = function (stream) {
         console.log("104-addLocalMediaStream");
         this.rtc.AddLocalStream(stream);
         var safeUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
         var participant = new models_1.Participant(stream, safeUrl, stream.id, 0);
+        console.log("addLocalMediaStream primary", participant.primay);
         this.onParticipant(participant);
         this.RemoteStreams.push(participant);
         console.log("105 - addLocalMediaStream -  Participants", this.RemoteStreams);

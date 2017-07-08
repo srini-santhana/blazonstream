@@ -4,7 +4,7 @@ import { ConferenceComponent }   from './conference.component';
 
 const conference_routes: Routes = [
   { path: '', pathMatch:'full', redirectTo: '/conference' },
-  { path: 'join/:slug', component: ConferenceComponent},
+  { path: 'join/:slug/:streamid', component: ConferenceComponent},
   { path: 'conference', component: ConferenceComponent},
   
 ];

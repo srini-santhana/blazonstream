@@ -44,6 +44,7 @@ export class ConferenceComponent {
     public Participants: Array<Participant>;
 
     public Context: string; //  context can be condidered as a "room"
+    public ParamStreamId: string;
 
     constructor(private conferenceService: ConferenceService, private sanitizer: DomSanitizer,
         private route: ActivatedRoute
@@ -57,6 +58,10 @@ export class ConferenceComponent {
 
         this.route.params.subscribe((params: Params) => {
 
+            if (params.hasOwnProperty("streamid"))
+            {
+                this.ParamStreamId = params["streamid"].toString();
+            }
             if (!params.hasOwnProperty("slug")) {
                 this.NewStreamUrl = "";
                 this.conferenceService.getSlug().subscribe((randomSlug: string) => {
@@ -77,8 +82,9 @@ export class ConferenceComponent {
             console.log("101 - constructor -  Participants",this.Participants);
             this.conferenceService.onParticipant = (participant: Participant) => {
                 console.log("102 a - onParticipant onParticipant  ",participant.url);
+                console.log("102 b - ParamStreamId  ",this.ParamStreamId);
                 // this.MainVideoUrl = participant.url;
-                var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                var firstParticipant =  this.conferenceService.findMediaStream(this.ParamStreamId);
                 if (firstParticipant)
                     this.MainVideoUrl = firstParticipant.url;
                 
@@ -117,7 +123,7 @@ export class ConferenceComponent {
             }
             else
             {
-                var firstParticipant =  this.conferenceService.findFirstMediaStream();
+                var firstParticipant =  this.conferenceService.findMediaStream(this.ParamStreamId);
                 if (firstParticipant)
                 {
                     console.log(firstParticipant.url);
