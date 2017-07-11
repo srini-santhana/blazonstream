@@ -40,14 +40,25 @@ var ConferenceService = (function () {
         // limit video and audio
         this.rtc.setBandwithConstraints(500, 50);
         this.rtc.OnContextCreated = function () {
+            console.log("conference.service.joinConference OnContextCreated ");
         };
-        this.rtc.OnLocalStream = function () { };
+        this.rtc.OnLocalStream = function () {
+            console.log("conference.service.joinConference OnContextCreated ");
+        };
         this.rtc.OnRemoteStream = function (stream) {
-            var safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
-            var participant = new models_1.Participant(stream, safeUrl, stream.id, 1);
-            console.log("onRemoteStream primary", participant.primay);
-            _this.onParticipant(participant);
-            _this.RemoteStreams.push(participant);
+            //  let safeUrl = sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+            //  let participant = new Participant(stream,
+            //      safeUrl,
+            //      stream.id,
+            //      1
+            //  );
+            //  console.log("1001-onRemoteStream primary" , participant.id)             ;
+            //  console.log("1002-onRemoteStream primary" , participant.id)             ;             
+            //  this.RemoteStreams.push(participant);
+            //  this.onParticipant(participant);             
+            //  console.log("1003-onRemoteStream primary" , participant.id)             ;                          
+            //  console.log("1004-onRemoteStream this.RemoteStreams " , this.RemoteStreams)             ;   
+            //  console.log("1005-onRemoteStream this.rtc " , this.rtc)             ;   
         };
         this.rtc.OnRemoteStreamlost = function (streamId, peerId) {
             var remoteStream = _this.findMediaStream(streamId);
@@ -70,27 +81,13 @@ var ConferenceService = (function () {
         });
     };
     ConferenceService.prototype.joinConference = function (context) {
+        console.log("conference.service.joinConference ", context);
         this.proxy.Invoke("changeContext", { context: context });
     };
-    ConferenceService.prototype.findMediaStream = function (streamId) {
-        var match = this.RemoteStreams.find(function (pre) {
-            return pre.id === streamId;
-        });
-        console.log("103-3aa findMediaStream", this.RemoteStreams.length);
-        var len = this.RemoteStreams.length;
-        for (var i = 0; i < len; i++) {
-            console.log("103-3z", this.RemoteStreams[i].id);
-            if (this.RemoteStreams[i].id === streamId)
-                match = this.RemoteStreams[i];
-        }
-        // for (var pre in this.RemoteStreams) {
-        //     console.log(this.RemoteStreams[pre], streamId);
-        //      if (pre.id === streamId )
-        //         match = pre;
-        // }   
-        console.log("103-3a findMediaStream", streamId);
-        console.log("103-3 findMediaStream", match);
-        return match;
+    ConferenceService.prototype.findMediaStream = function () {
+        var stream = this.rtc.Peers[0].streams[0];
+        var safeUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+        return safeUrl;
     };
     // addFirstMediaStream(firstUrl: SafeUrl, stream: MediaStream)
     // {
@@ -108,14 +105,17 @@ var ConferenceService = (function () {
     //     return match;
     // }
     ConferenceService.prototype.addLocalMediaStream = function (stream) {
-        console.log("104-addLocalMediaStream");
-        this.rtc.AddLocalStream(stream);
-        var safeUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
-        var participant = new models_1.Participant(stream, safeUrl, stream.id, 0);
-        console.log("addLocalMediaStream primary", participant.primay);
-        this.onParticipant(participant);
-        this.RemoteStreams.push(participant);
-        console.log("105 - addLocalMediaStream -  Participants", this.RemoteStreams);
+        console.log("104-addLocalMediaStream", this.rtc.Peers);
+        if (this.rtc.Peers.length === 0 || this.rtc.Peers[0].streams.length === 0) {
+            this.rtc.AddLocalStream(stream);
+            var safeUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(stream));
+            var participant = new models_1.Participant(stream, safeUrl, stream.id, 0);
+            console.log("addLocalMediaStream primary", participant.primay);
+            this.onParticipant(participant);
+            this.RemoteStreams.push(participant);
+            console.log("105 - addLocalMediaStream -  Participants", this.RemoteStreams);
+            // console.log("105a -addLocalMediaStream" , this.rtc.Peers[0].streams[0].id);             
+        }
     };
     ;
     ConferenceService.prototype.connectContext = function (context) {
