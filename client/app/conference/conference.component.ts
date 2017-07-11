@@ -81,12 +81,13 @@ export class ConferenceComponent {
             
             console.log("101 - constructor -  Participants",this.Participants);
             this.conferenceService.onParticipant = (participant: Participant) => {
-                console.log("102 a - onParticipant onParticipant  ",participant.url);
-                console.log("102 b - ParamStreamId  ",this.ParamStreamId);
-                // this.MainVideoUrl = participant.url;
-                var firstParticipant =  this.conferenceService.findMediaStream(this.ParamStreamId);
-                if (firstParticipant)
-                    this.MainVideoUrl = firstParticipant.url;
+                
+                 console.log("102 a - onParticipant onParticipant  ",participant.url);
+                // console.log("102 b - ParamStreamId  ",this.ParamStreamId);
+                this.MainVideoUrl = participant.url;
+                // var firstParticipant =  this.conferenceService.findMediaStream(this.ParamStreamId);
+                // if (firstParticipant)
+                //     this.MainVideoUrl = firstParticipant.url;
                 
             }
         });

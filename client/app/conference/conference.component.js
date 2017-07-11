@@ -62,11 +62,11 @@ var ConferenceComponent = (function () {
             console.log("101 - constructor -  Participants", _this.Participants);
             _this.conferenceService.onParticipant = function (participant) {
                 console.log("102 a - onParticipant onParticipant  ", participant.url);
-                console.log("102 b - ParamStreamId  ", _this.ParamStreamId);
-                // this.MainVideoUrl = participant.url;
-                var firstParticipant = _this.conferenceService.findMediaStream(_this.ParamStreamId);
-                if (firstParticipant)
-                    _this.MainVideoUrl = firstParticipant.url;
+                // console.log("102 b - ParamStreamId  ",this.ParamStreamId);
+                _this.MainVideoUrl = participant.url;
+                // var firstParticipant =  this.conferenceService.findMediaStream(this.ParamStreamId);
+                // if (firstParticipant)
+                //     this.MainVideoUrl = firstParticipant.url;
             };
         });
     }
